@@ -11,13 +11,10 @@ function App(): JSX.Element {
     //convert input text to lower case
     const lowerCase = event.target.value.toLowerCase();
     setInputText(lowerCase);
-  }
+  };
   return (
     <>
-      <SearchBar 
-        value ={inputText}
-        onChange ={handlerFunction}
-      />
+      <SearchBar value={inputText} onChange={handlerFunction} />
 
       <hr />
       {filteredBabies.map((oneBaby: OneBaby) => {
