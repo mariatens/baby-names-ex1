@@ -6,7 +6,7 @@ function App(): JSX.Element {
   return (
     <>
       <SearchBar />
-      <hr/>
+      <hr />
       {babies.map((oneBaby: OneBaby) => {
         return <BabyName key={oneBaby.id} baby={oneBaby} />;
       })}
