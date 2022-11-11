@@ -1,4 +1,10 @@
-[
+export interface OneBaby {
+  id: number;
+  name: string;
+  sex: string;
+}
+
+export const babies: OneBaby[] =  [
     {
       "id": 0,
       "name": "Zahra",
