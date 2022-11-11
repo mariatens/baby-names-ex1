@@ -6,7 +6,6 @@ function App(): JSX.Element {
     <>
     { babies.map((oneBaby: OneBaby) => {
         return <BabyName key={oneBaby.id} baby = {oneBaby}/>
-        
       })}
     </>
   )
