@@ -1,4 +1,4 @@
-import printNames  from "./printNames";
+import printNames from "./printNames";
 
 // test("printNames returns a string, printNamesing the passed name", () => {
 //   expect(printNames("World")).toBe("Hello, World!");
