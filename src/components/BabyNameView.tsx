@@ -18,10 +18,6 @@ export function BabyName(props: BabyNamesProps): JSX.Element {
 // export default function BabyNamesView(props: BabyNamesProps): JSX.Element{
 //     return (
 //         <>
-//         {babyData.map((baby) => {
-//             return <BabyName baby={baby} key = {/>
-//         }
-//         )}
 //         </>
 //     )
 // }
