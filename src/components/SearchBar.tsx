@@ -1,6 +1,3 @@
-import { useState } from "react";
-import { babies } from "../babyNamesData";
-
 type HandlerFunction = (event: React.ChangeEvent<HTMLInputElement>) => void;
 
 interface TextProps {

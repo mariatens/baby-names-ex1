@@ -1,6 +1,6 @@
 import { OneBaby } from "../babyNamesData";
 
-export const filterData = (data: OneBaby[], query: string) => {
+export const filterData = (data: OneBaby[], query: string): OneBaby[] => {
   if (!query) {
     return data;
   }
