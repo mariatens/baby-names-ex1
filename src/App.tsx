@@ -1,7 +1,7 @@
 import { BabyName } from "./components/BabyNameView";
 import { babies, OneBaby } from "./babyNamesData";
 import { SearchBar } from "./components/SearchBar";
-import { filterData } from "./utils/filter";
+import filterData from "./utils/filter";
 import { useState } from "react";
 
 function App(): JSX.Element {

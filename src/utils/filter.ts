@@ -1,11 +1,13 @@
 import { OneBaby } from "../babyNamesData";
 
-export const filterData = (data: OneBaby[], query: string): OneBaby[] => {
+function filterData(data: OneBaby[], query: string): OneBaby[] {
   if (!query) {
     return data;
   }
-  return data.filter((post) => {
-    const postName = post.name.toLowerCase();
-    return postName.includes(query);
+  return data.filter((dat) => {
+    const datName = dat.name.toLowerCase();
+    return datName.includes(query.toLowerCase());
   });
-};
+}
+
+export default filterData;
