@@ -7,7 +7,7 @@ interface BabyNamesProps {
 export function BabyName(props: BabyNamesProps): JSX.Element {
   return (
     <button
-      style={{ color: props.baby.sex === "f" ? "pink" : "blue" }}
+      style={{background: props.baby.sex === "f" ? "red" : "green" }}
       key={props.baby.id}
     >
       {props.baby.name}
