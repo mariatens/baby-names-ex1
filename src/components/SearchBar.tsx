@@ -1,28 +1,14 @@
-import { useState } from "react";
-import { babies } from "../babyNamesData";
+type HandlerFunction = (event: React.ChangeEvent<HTMLInputElement>) => void;
 
-export function SearchBar(): JSX.Element {
-  const [inputText, setInputText] = useState("");
-  // const filteredData = babies.filter((el) =>{
-  //     if (inputText === ''){
-  //         return el
-  //     }
-  //     else{
-  //         return el.toLowerCase().includes(props.inputText)
-  //     }
-  // }
-  // )
+interface TextProps {
+  value: string;
+  onChange: HandlerFunction;
+}
+
+export function SearchBar({ value, onChange }: TextProps): JSX.Element {
   return (
     <>
-      <input
-        placeholder="Search a name"
-        value={inputText}
-        onChange={(event) => {
-          //convert input text to lower case
-          const lowerCase = event.target.value.toLowerCase();
-          setInputText(lowerCase);
-        }}
-      />
+      <input placeholder="Search a name" value={value} onChange={onChange} />
     </>
   );
 }
