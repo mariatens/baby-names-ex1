@@ -1,5 +1,5 @@
 import { OneBaby } from "../babyNamesData";
-import "../styles.css";
+import '../styles.css'
 
 interface BabyNamesProps {
   baby: OneBaby;
@@ -7,17 +7,11 @@ interface BabyNamesProps {
 export function BabyName(props: BabyNamesProps): JSX.Element {
   return (
     <button
-      style={{ background: props.baby.sex === "f" ? "red" : "green" }}
+      className = {props.baby.sex === "f" ? "femaleb" : "maleb"}
       key={props.baby.id}
     >
       {props.baby.name}
     </button>
   );
 }
-
-// export default function BabyNamesView(props: BabyNamesProps): JSX.Element{
-//     return (
-//         <>
-//         </>
-//     )
-// }
+// style={{ background: props.baby.sex === "f" ? "red" : "green" }}
