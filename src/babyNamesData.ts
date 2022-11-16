@@ -1,4 +1,4 @@
-export type Sex = "f" | "m"
+export type Sex = "f" | "m";
 
 export interface OneBaby {
   id: number;

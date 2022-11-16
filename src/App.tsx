@@ -13,13 +13,21 @@ function App(): JSX.Element {
   
   //trying save favs
   // const favs:any[] = []
-  const [selectedName, setSelectedName] = useState('a');
-  const [savedNames, setSavedNames] = useState<string[]>([])
-  const handleFavs = (name: string) =>{
+  const [selectedName, setSelectedName] = useState<OneBaby>();
+  const [savedNames, setSavedNames] = useState<OneBaby[]>([])
+  const handleFavs = (name: OneBaby) =>{
     setSelectedName(name)
     setSavedNames([...savedNames,
       name])
   }
+  //deleting the fav ones that get clicked
+  const removeElement = (name: string) => {
+      const updatedNames = savedNames.filter(
+        (savedName) => savedName.name !== name
+      );
+      setSavedNames(updatedNames)
+      console.log("it's working")
+    };
 
   const findName = (event: React.ChangeEvent<HTMLInputElement>) => {
     //convert input text to lower case
@@ -31,10 +39,14 @@ function App(): JSX.Element {
       <SearchBar value={inputText} onChange={findName} />
       <hr />
       <h2>Favourite names:</h2>
-      {savedNames.map((eachName: string)=> {return <button key = {eachName} >{eachName}</button>})}
+      {savedNames.map((eachSavedBaby: OneBaby)=> {
+        return <button key = {eachSavedBaby.id} 
+                       className = {eachSavedBaby.sex === "f" ? "femaleb" : "maleb"} 
+                       onClick = {() => removeElement(eachSavedBaby.name)}>
+              {eachSavedBaby.name}</button>})}
       <hr/>
       {filteredBabies.map((oneBaby: OneBaby) => {
-        return <BabyName key={oneBaby.id} baby={oneBaby} onClick  = {() => {handleFavs(oneBaby.name); console.log(savedNames)}}/>;
+        return <BabyName key={oneBaby.id} baby={oneBaby} onClick  = {() => {handleFavs(oneBaby); console.log(savedNames)}}/>;
       })}
     </>
   );
