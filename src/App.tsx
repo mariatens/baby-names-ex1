@@ -31,7 +31,7 @@ function App(): JSX.Element {
       <SearchBar value={inputText} onChange={findName} />
       <hr />
       <h2>Favourite names:</h2>
-      <p> {savedNames.join(',')}</p>
+      {savedNames.map((eachName: string)=> {return <button key = {eachName} >{eachName}</button>})}
       <hr/>
       {filteredBabies.map((oneBaby: OneBaby) => {
         return <BabyName key={oneBaby.id} baby={oneBaby} onClick  = {() => {handleFavs(oneBaby.name); console.log(savedNames)}}/>;
