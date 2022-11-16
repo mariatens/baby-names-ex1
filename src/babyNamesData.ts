@@ -1,7 +1,9 @@
+export type Sex = "f" | "m"
+
 export interface OneBaby {
   id: number;
   name: string;
-  sex: string;
+  sex: Sex;
 }
 
 export const babies: OneBaby[] = [
