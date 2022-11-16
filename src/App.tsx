@@ -11,7 +11,15 @@ function App(): JSX.Element {
   const [inputText, setInputText] = useState("");
   const filteredBabies = filterData(babies, inputText);
   
-  const [selectedName, setSelectedName] = useState('');
+  //trying save favs
+  // const favs:any[] = []
+  const [selectedName, setSelectedName] = useState('a');
+  const [savedNames, setSavedNames] = useState<string[]>([])
+  const handleFavs = (name: string) =>{
+    setSelectedName(name)
+    setSavedNames([...savedNames,
+      name])
+  }
 
   const findName = (event: React.ChangeEvent<HTMLInputElement>) => {
     //convert input text to lower case
@@ -22,14 +30,15 @@ function App(): JSX.Element {
     <>
       <SearchBar value={inputText} onChange={findName} />
       <hr />
-      <h2>Favourite names</h2>
-      <p> {favs}</p>
+      <h2>Favourite names:</h2>
+      <p> {savedNames.join(',')}</p>
+      <hr/>
       {filteredBabies.map((oneBaby: OneBaby) => {
-        return <BabyName key={oneBaby.id} baby={oneBaby} onClick= {() =>
-          setSelectedName(oneBaby.name)} />;
+        return <BabyName key={oneBaby.id} baby={oneBaby} onClick  = {() => {handleFavs(oneBaby.name); console.log(savedNames)}}/>;
       })}
     </>
   );
 }
 
 export default App;
+//{favs.push(oneBaby.name)} working in console
