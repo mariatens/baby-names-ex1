@@ -9,19 +9,28 @@ function App(): JSX.Element {
   const [inputText, setInputText] = useState("");
   const filteredBabies = filterData(babies, inputText);
 
-  //Save favs
-  const [selectedName, setSelectedName] = useState<OneBaby>();
-  const [savedNames, setSavedNames] = useState<OneBaby[]>([]);
-  const handleFavs = (name: OneBaby) => {
-    setSelectedName(name);
-    setSavedNames([...savedNames, name]);
-  };
+ // Delete general ones that get clicked
+ const [visible, setVisible] = useState(true);
+ const removeElement = () => {
+   setVisible((prev) => !prev);
+ }
+
   //Delete fav ones that get clicked
-  const removeElement = (name: string) => {
+  const removeElementFromList = (name: string) => {
     const updatedNames = savedNames.filter(
       (savedName) => savedName.name !== name
     );
     setSavedNames(updatedNames);
+  };
+
+   //Save favs
+   const [selectedName, setSelectedName] = useState<OneBaby>();
+   const [savedNames, setSavedNames] = useState<OneBaby[]>([]);
+  
+  const handleFavs = (name: OneBaby) => {
+    setSelectedName(name);
+    savedNames.includes(name) ? setSavedNames([...savedNames]) : setSavedNames([...savedNames, name]); // if saved named is there already, don't save it again
+    removeElement()
   };
 
   const findName = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,7 +48,7 @@ function App(): JSX.Element {
           <button
             key={eachSavedBaby.id}
             className={eachSavedBaby.sex === "f" ? "femaleb" : "maleb"}
-            onClick={() => removeElement(eachSavedBaby.name)}
+            onClick={() => removeElementFromList(eachSavedBaby.name)}
           >
             {eachSavedBaby.name}
           </button>
@@ -55,6 +64,7 @@ function App(): JSX.Element {
               handleFavs(oneBaby);
             }}
           />
+          // .then((jsonBody: OneBaby) => removeElementFromList(jsonBody.name)); thought this could work to remove after selection
         );
       })}
     </>
