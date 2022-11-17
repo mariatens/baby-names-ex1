@@ -68,10 +68,13 @@ function App(): JSX.Element {
   return (
     <>
       <SearchBar value={inputText} onChange={saveTypedName} />
-      <SexFilter 
+      <button className = {activeIndex === "m" ? "isactive":""} onClick = {handleMaleSex}>Male</button> 
+      <button className = {activeIndex === "f" ? "isactive":""} onClick = {handleFemaleSex}>Female</button>
+      <button className = {activeIndex === "a" ? "isactive":""} onClick = {handleAllSex}>All</button>
+      {/* <SexFilter 
             onClickF={handleFemaleSex}
             onClickM={handleMaleSex}
-            onClickA={handleAllSex}/>
+            onClickA={handleAllSex}/> */}
       <hr />
       <h2>Favourite names:</h2>
       {savedNames.map((eachSavedBaby: OneBaby) => {

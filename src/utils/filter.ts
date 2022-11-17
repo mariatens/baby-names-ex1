@@ -7,9 +7,6 @@ function filterData(data: OneBaby[], query: string, sex: string): OneBaby[] {
   if (sex === "m"){
     data = data.filter((dat) => dat.sex === "m")
   }
-  if (sex === "a"){
-    data = data
-  }
   if (!query) {
     return data;
   }
