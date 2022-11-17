@@ -2,6 +2,7 @@ import { useState } from "react";
 import { babies, OneBaby } from "./babyNamesData";
 import { BabyName } from "./components/BabyNameView";
 import { SearchBar } from "./components/SearchBar";
+import { SexFilter } from "./components/SexFilter";
 import filterData from "./utils/filter";
 
 function App(): JSX.Element {
@@ -25,9 +26,7 @@ function App(): JSX.Element {
   };
   // Save what I write in the search bar
   const saveTypedName = (typedName: string) => {
-    //convert input text to lower case
-    const lowerCase = typedName.toLowerCase();
-    setInputText(lowerCase);
+    setInputText(typedName);
   };
 
   // Delete fav ones that get clicked and return them to the same place
@@ -53,9 +52,22 @@ function App(): JSX.Element {
     
   };
 
+  const handleFemaleSex = () => {
+    const females = generalBabies.filter((baby) => baby.sex === "f")
+    setGeneralBabies(females)
+  }
+
+  const handleMaleSex = () => {
+    const males = generalBabies.filter((baby) => baby.sex === "m")
+    setGeneralBabies(males)
+  }
+
   return (
     <>
       <SearchBar value={inputText} onChange={saveTypedName} />
+      <SexFilter 
+            onClickF={handleFemaleSex}
+            onClickM={handleMaleSex}/>
       <hr />
       <h2>Favourite names:</h2>
       {savedNames.map((eachSavedBaby: OneBaby) => {
