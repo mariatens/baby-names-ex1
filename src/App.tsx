@@ -9,7 +9,8 @@ function App(): JSX.Element {
   const [generalBabies, setGeneralBabies]= useState<OneBaby[]>(babies) // starting with babies dataset
   const [inputText, setInputText] = useState("");
   const [savedNames, setSavedNames] = useState<OneBaby[]>([]);
-  const filteredBabies = filterData(generalBabies, inputText);
+  const [activeIndex, setActiveIndex] = useState("a");
+  const filteredBabies = filterData(generalBabies, inputText, activeIndex);
 
   // Delete general ones that get clicked
   const removeElementFromGeneralList = (name: OneBaby) => {
@@ -51,22 +52,17 @@ function App(): JSX.Element {
     setGeneralBabies(orderedBabies)
     
   };
-  const [activeIndex, setActiveIndex] = useState(0);
+  // handle sex filters
+
   const handleFemaleSex = () => {
-    const females = generalBabies.filter((baby) => baby.sex === "f")
-    setGeneralBabies(females)
-    setActiveIndex(1)
+    setActiveIndex("f")
   }
 
   const handleMaleSex = () => {
-    const males = generalBabies.filter((baby) => baby.sex === "m")
-    setGeneralBabies(males)
-    setActiveIndex(1)
+    setActiveIndex("m")
   }
   const handleAllSex = () => {
-    const males = generalBabies;
-    setGeneralBabies(generalBabies);
-    setActiveIndex(0)
+    setActiveIndex("a")
   }
 
   return (
