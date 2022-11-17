@@ -30,7 +30,7 @@ function App(): JSX.Element {
   const handleFavs = (name: OneBaby) => {
     setSelectedName(name);
     savedNames.includes(name) ? setSavedNames([...savedNames]) : setSavedNames([...savedNames, name]); // if saved named is there already, don't save it again
-    removeElement()
+
   };
 
   const findName = (event: React.ChangeEvent<HTMLInputElement>) => {
