@@ -51,15 +51,22 @@ function App(): JSX.Element {
     setGeneralBabies(orderedBabies)
     
   };
-
+  const [activeIndex, setActiveIndex] = useState(0);
   const handleFemaleSex = () => {
     const females = generalBabies.filter((baby) => baby.sex === "f")
     setGeneralBabies(females)
+    setActiveIndex(1)
   }
 
   const handleMaleSex = () => {
     const males = generalBabies.filter((baby) => baby.sex === "m")
     setGeneralBabies(males)
+    setActiveIndex(1)
+  }
+  const handleAllSex = () => {
+    const males = generalBabies;
+    setGeneralBabies(generalBabies);
+    setActiveIndex(0)
   }
 
   return (
@@ -67,7 +74,8 @@ function App(): JSX.Element {
       <SearchBar value={inputText} onChange={saveTypedName} />
       <SexFilter 
             onClickF={handleFemaleSex}
-            onClickM={handleMaleSex}/>
+            onClickM={handleMaleSex}
+            onClickA={handleAllSex}/>
       <hr />
       <h2>Favourite names:</h2>
       {savedNames.map((eachSavedBaby: OneBaby) => {

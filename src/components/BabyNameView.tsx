@@ -3,7 +3,7 @@ import "../styles.css";
 
 interface BabyNamesProps {
   baby: OneBaby;
-  onClick: (event: any) => void;
+  onClick: () => void;
 }
 export const favs: string[] = [];
 
