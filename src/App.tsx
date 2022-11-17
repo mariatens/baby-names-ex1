@@ -3,44 +3,59 @@ import { babies, OneBaby } from "./babyNamesData";
 import { BabyName } from "./components/BabyNameView";
 import { SearchBar } from "./components/SearchBar";
 import filterData from "./utils/filter";
-//(clickedName: OneBaby) => void
 
 function App(): JSX.Element {
+  const [generalBabies, setGeneralBabies]= useState<OneBaby[]>(babies) // starting with babies dataset
   const [inputText, setInputText] = useState("");
-  const filteredBabies = filterData(babies, inputText);
+  const [savedNames, setSavedNames] = useState<OneBaby[]>([]);
+  const filteredBabies = filterData(generalBabies, inputText);
 
- // Delete general ones that get clicked
- const [visible, setVisible] = useState(true);
- const removeElement = () => {
-   setVisible((prev) => !prev);
- }
-
-  //Delete fav ones that get clicked
-  const removeElementFromList = (name: string) => {
-    const updatedNames = savedNames.filter(
-      (savedName) => savedName.name !== name
-    );
-    setSavedNames(updatedNames);
+  // Delete general ones that get clicked
+  const removeElementFromGeneralList = (name: OneBaby) => {
+    const updatedNames = filteredBabies.filter(
+      (filteredBaby) => filteredBaby !== name)
+    setGeneralBabies(updatedNames);
   };
 
    //Save favs
-   const [selectedName, setSelectedName] = useState<OneBaby>();
-   const [savedNames, setSavedNames] = useState<OneBaby[]>([]);
   
   const handleFavs = (name: OneBaby) => {
-    setSelectedName(name);
-    savedNames.includes(name) ? setSavedNames([...savedNames]) : setSavedNames([...savedNames, name]); // if saved named is there already, don't save it again
-
+    removeElementFromGeneralList(name)
+    setSavedNames([...savedNames, name])  
   };
-
-  const findName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Save what I write in the search bar
+  const saveTypedName = (typedName: string) => {
     //convert input text to lower case
-    const lowerCase = event.target.value.toLowerCase();
+    const lowerCase = typedName.toLowerCase();
     setInputText(lowerCase);
   };
+
+  // Delete fav ones that get clicked and return them to the same place
+  const removeFavElementFromList = (name: OneBaby) => {
+    const updatedNames = savedNames.filter(
+      (savedName) => savedName !== name
+    );
+    setSavedNames(updatedNames);
+    const orderedBabies = [...generalBabies, name]
+    orderedBabies.sort((a, b) => {
+      const fa = a.name;
+      const fb = b.name;
+    
+      if (fa < fb) {
+        return -1;
+      }
+      if (fa > fb) {
+        return 1;
+      }
+      return 0;
+    });
+    setGeneralBabies(orderedBabies)
+    
+  };
+
   return (
     <>
-      <SearchBar value={inputText} onChange={findName} />
+      <SearchBar value={inputText} onChange={saveTypedName} />
       <hr />
       <h2>Favourite names:</h2>
       {savedNames.map((eachSavedBaby: OneBaby) => {
@@ -48,14 +63,14 @@ function App(): JSX.Element {
           <button
             key={eachSavedBaby.id}
             className={eachSavedBaby.sex === "f" ? "femaleb" : "maleb"}
-            onClick={() => removeElementFromList(eachSavedBaby.name)}
+            onClick={() => removeFavElementFromList(eachSavedBaby)}
           >
             {eachSavedBaby.name}
           </button>
         );
       })}
       <hr />
-      {filteredBabies.map((oneBaby: OneBaby) => {
+      {filteredBabies.map((oneBaby: OneBaby) => { 
         return (
           <BabyName
             key={oneBaby.id}
@@ -63,8 +78,7 @@ function App(): JSX.Element {
             onClick={() => {
               handleFavs(oneBaby);
             }}
-          />
-          // .then((jsonBody: OneBaby) => removeElementFromList(jsonBody.name)); thought this could work to remove after selection
+          /> 
         );
       })}
     </>
