@@ -1,0 +1,23 @@
+.femaleb {
+  background-color: #e0bbe4;
+  font-size: 24px;
+  border-radius: 20%;
+}
+.maleb {
+  background-color: #ffdfd3;
+  font-size: 24px;
+  border-radius: 20%;
+}
+
+.searchbar {
+  margin: auto;
+  display: block;
+}
+
+.margin-top {
+  margin-top: 20px;
+}
+
+.isactive {
+  border-color: black;
+}
