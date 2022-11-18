@@ -1,5 +1,6 @@
 import { OneBaby } from "../babyNamesData";
 
+//change
 function filterData(data: OneBaby[], query?: string, sex?: string): OneBaby[] {
   if (sex === "f") {
     data = data.filter((dat) => dat.sex === "f");
