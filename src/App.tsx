@@ -6,7 +6,7 @@ import { SexFilter } from "./components/SexFilter";
 import filterData from "./utils/filter";
 
 function App(): JSX.Element {
-  const [generalBabies, setGeneralBabies]= useState<OneBaby[]>(babies) // starting with babies dataset
+  const [generalBabies, setGeneralBabies] = useState<OneBaby[]>(babies); // starting with babies dataset
   const [inputText, setInputText] = useState("");
   const [savedNames, setSavedNames] = useState<OneBaby[]>([]);
   const [activeIndex, setActiveIndex] = useState("a");
@@ -15,15 +15,16 @@ function App(): JSX.Element {
   // Delete general ones that get clicked
   const removeElementFromGeneralList = (name: OneBaby) => {
     const updatedNames = filteredBabies.filter(
-      (filteredBaby) => filteredBaby !== name)
+      (filteredBaby) => filteredBaby !== name
+    );
     setGeneralBabies(updatedNames);
   };
 
-   //Save favs
-  
+  //Save favs
+
   const handleFavs = (name: OneBaby) => {
-    removeElementFromGeneralList(name)
-    setSavedNames([...savedNames, name])  
+    removeElementFromGeneralList(name);
+    setSavedNames([...savedNames, name]);
   };
   // Save what I write in the search bar
   const saveTypedName = (typedName: string) => {
@@ -32,15 +33,13 @@ function App(): JSX.Element {
 
   // Delete fav ones that get clicked and return them to the same place
   const removeFavElementFromList = (name: OneBaby) => {
-    const updatedNames = savedNames.filter(
-      (savedName) => savedName !== name
-    );
+    const updatedNames = savedNames.filter((savedName) => savedName !== name);
     setSavedNames(updatedNames);
-    const orderedBabies = [...generalBabies, name]
+    const orderedBabies = [...generalBabies, name];
     orderedBabies.sort((a, b) => {
       const fa = a.name;
       const fb = b.name;
-    
+
       if (fa < fb) {
         return -1;
       }
@@ -49,28 +48,42 @@ function App(): JSX.Element {
       }
       return 0;
     });
-    setGeneralBabies(orderedBabies)
-    
+    setGeneralBabies(orderedBabies);
   };
   // handle sex filters
 
   const handleFemaleSex = () => {
-    setActiveIndex("f")
-  }
+    setActiveIndex("f");
+  };
 
   const handleMaleSex = () => {
-    setActiveIndex("m")
-  }
+    setActiveIndex("m");
+  };
   const handleAllSex = () => {
-    setActiveIndex("a")
-  }
+    setActiveIndex("a");
+  };
 
   return (
     <>
       <SearchBar value={inputText} onChange={saveTypedName} />
-      <button className = {activeIndex === "m" ? "isactive":""} onClick = {handleMaleSex}>Male</button> 
-      <button className = {activeIndex === "f" ? "isactive":""} onClick = {handleFemaleSex}>Female</button>
-      <button className = {activeIndex === "a" ? "isactive":""} onClick = {handleAllSex}>All</button>
+      <button
+        className={activeIndex === "m" ? "isactive" : ""}
+        onClick={handleMaleSex}
+      >
+        Male
+      </button>
+      <button
+        className={activeIndex === "f" ? "isactive" : ""}
+        onClick={handleFemaleSex}
+      >
+        Female
+      </button>
+      <button
+        className={activeIndex === "a" ? "isactive" : ""}
+        onClick={handleAllSex}
+      >
+        All
+      </button>
       {/* <SexFilter 
             onClickF={handleFemaleSex}
             onClickM={handleMaleSex}
@@ -89,7 +102,7 @@ function App(): JSX.Element {
         );
       })}
       <hr />
-      {filteredBabies.map((oneBaby: OneBaby) => { 
+      {filteredBabies.map((oneBaby: OneBaby) => {
         return (
           <BabyName
             key={oneBaby.id}
@@ -97,7 +110,7 @@ function App(): JSX.Element {
             onClick={() => {
               handleFavs(oneBaby);
             }}
-          /> 
+          />
         );
       })}
     </>
