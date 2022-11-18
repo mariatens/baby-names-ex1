@@ -2,7 +2,6 @@ import { useState } from "react";
 import { babies, OneBaby } from "./babyNamesData";
 import { BabyName } from "./components/BabyNameView";
 import { SearchBar } from "./components/SearchBar";
-import { SexFilter } from "./components/SexFilter";
 import filterData from "./utils/filter";
 
 function App(): JSX.Element {
