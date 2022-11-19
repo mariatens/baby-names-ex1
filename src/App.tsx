@@ -7,7 +7,7 @@ import filterData from "./utils/filter";
 function App(): JSX.Element {
   const [generalBabies, setGeneralBabies] = useState<OneBaby[]>(babies); // starting with babies dataset
   const [inputText, setInputText] = useState("");
-  const [savedNames, setSavedNames] = useState<OneBaby[]>([]);
+  const [favouriteNames, setFavouriteNames] = useState<OneBaby[]>([]);
   const [activeIndex, setActiveIndex] = useState("a");
   const filteredBabies = filterData(generalBabies, inputText, activeIndex);
 
@@ -23,7 +23,7 @@ function App(): JSX.Element {
 
   const handleFavs = (name: OneBaby) => {
     removeElementFromGeneralList(name);
-    setSavedNames([...savedNames, name]);
+    setFavouriteNames([...favouriteNames, name]);
   };
   // Save what I write in the search bar
   const saveTypedName = (typedName: string) => {
@@ -32,8 +32,8 @@ function App(): JSX.Element {
 
   // Delete fav ones that get clicked and return them to the same place
   const removeFavElementFromList = (name: OneBaby) => {
-    const updatedNames = savedNames.filter((savedName) => savedName !== name);
-    setSavedNames(updatedNames);
+    const updatedNames = favouriteNames.filter((savedName) => savedName !== name);
+    setFavouriteNames(updatedNames);
     const orderedBabies = [...generalBabies, name];
     orderedBabies.sort((a, b) => {
       const fa = a.name;
@@ -89,7 +89,7 @@ function App(): JSX.Element {
             onClickA={handleAllSex}/> */}
       <hr />
       <h2>Favourite names:</h2>
-      {savedNames.map((eachSavedBaby: OneBaby) => {
+      {favouriteNames.map((eachSavedBaby: OneBaby) => {
         return (
           <button
             key={eachSavedBaby.id}
