@@ -4,6 +4,7 @@ import { BabyName } from "./components/BabyNameView";
 import { SearchBar } from "./components/SearchBar";
 import { SexFilter } from "./components/SexFilter";
 import filterData from "./utils/filter";
+import { FavouriteNames } from "./components/FavouriteNameView";
 
 function App(): JSX.Element {
   const [generalBabies, setGeneralBabies] = useState<OneBaby[]>(babies); // starting with babies dataset
@@ -73,15 +74,12 @@ function App(): JSX.Element {
             activeIndex={activeIndex}/>
       <hr />
       <h2>Favourite names:</h2>
-      {favouriteNames.map((eachSavedBaby: OneBaby) => {
+      {favouriteNames.map((eachFavBaby: OneBaby) => {
         return (
-          <button
-            key={eachSavedBaby.id}
-            className={eachSavedBaby.sex === "f" ? "femaleb" : "maleb"}
-            onClick={() => removeFavElementFromList(eachSavedBaby)}
-          >
-            {eachSavedBaby.name}
-          </button>
+          <FavouriteNames 
+          key = {eachFavBaby.id} 
+          favName = {eachFavBaby} 
+          functionRemove = {removeFavElementFromList} />
         );
       })}
       <hr />
