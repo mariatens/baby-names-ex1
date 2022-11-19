@@ -2,6 +2,7 @@ import { useState } from "react";
 import { babies, OneBaby } from "./babyNamesData";
 import { BabyName } from "./components/BabyNameView";
 import { SearchBar } from "./components/SearchBar";
+import { SexFilter } from "./components/SexFilter";
 import filterData from "./utils/filter";
 
 function App(): JSX.Element {
@@ -65,28 +66,11 @@ function App(): JSX.Element {
   return (
     <>
       <SearchBar value={inputText} onChange={saveTypedName} />
-      <button
-        className={activeIndex === "m" ? "isactive" : ""}
-        onClick={handleMaleSex}
-      >
-        Male
-      </button>
-      <button
-        className={activeIndex === "f" ? "isactive" : ""}
-        onClick={handleFemaleSex}
-      >
-        Female
-      </button>
-      <button
-        className={activeIndex === "a" ? "isactive" : ""}
-        onClick={handleAllSex}
-      >
-        All
-      </button>
-      {/* <SexFilter 
+      <SexFilter 
             onClickF={handleFemaleSex}
             onClickM={handleMaleSex}
-            onClickA={handleAllSex}/> */}
+            onClickA={handleAllSex}
+            activeIndex={activeIndex}/>
       <hr />
       <h2>Favourite names:</h2>
       {favouriteNames.map((eachSavedBaby: OneBaby) => {
