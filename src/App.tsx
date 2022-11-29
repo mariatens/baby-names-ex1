@@ -2,7 +2,7 @@ import { useState } from "react";
 import { babies, OneBaby } from "./babyNamesData";
 import { BabyName } from "./components/BabyNameView";
 import { SearchBar } from "./components/SearchBar";
-import { SexFilter } from "./components/SexFilter";
+import { ActiveIndex, SexFilter } from "./components/SexFilter";
 import filterData from "./utils/filter";
 import { FavouriteNames } from "./components/FavouriteNameView";
 
@@ -10,7 +10,7 @@ function App(): JSX.Element {
   const [generalBabies, setGeneralBabies] = useState<OneBaby[]>(babies); // starting with babies dataset
   const [inputText, setInputText] = useState("");
   const [favouriteNames, setFavouriteNames] = useState<OneBaby[]>([]);
-  const [activeIndex, setActiveIndex] = useState("a");
+  const [activeIndex, setActiveIndex] = useState<ActiveIndex>("a");
   const filteredBabies = filterData(generalBabies, inputText, activeIndex);
 
   // Delete general ones that get clicked

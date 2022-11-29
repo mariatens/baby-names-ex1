@@ -1,8 +1,10 @@
+export type ActiveIndex = "a"|"f"|"m"
+
 interface SexFilterProps {
   onClickM: () => void;
   onClickF: () => void;
   onClickA: () => void;
-  activeIndex: any;
+  activeIndex: ActiveIndex;
 }
 
 export function SexFilter(props: SexFilterProps): JSX.Element {

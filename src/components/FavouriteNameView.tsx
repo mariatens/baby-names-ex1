@@ -2,7 +2,7 @@ import { OneBaby } from "../babyNamesData"
 
 interface FavouriteNamesProps{
     favName: OneBaby
-    functionRemove: (name: OneBaby)=> any;
+    functionRemove: (name: OneBaby)=> void;
 }
 
 
