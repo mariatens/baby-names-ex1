@@ -1,6 +1,7 @@
 import { OneBaby } from "../babyNamesData";
+import { ActiveIndex } from "../components/SexFilter";
 
-function filterData(data: OneBaby[], query?: string, sex?: string): OneBaby[] {
+function filterData(data: OneBaby[], query?: string, sex?: ActiveIndex): OneBaby[] {
   if (sex === "f") {
     data = data.filter((dat) => dat.sex === "f");
   }

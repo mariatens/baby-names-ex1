@@ -2,28 +2,22 @@ import { useState } from "react";
 import { babies, OneBaby } from "./babyNamesData";
 import { BabyName } from "./components/BabyNameView";
 import { SearchBar } from "./components/SearchBar";
+import { ActiveIndex, SexFilter } from "./components/SexFilter";
 import filterData from "./utils/filter";
+import { FavouriteNames } from "./components/FavouriteNameView";
 
 function App(): JSX.Element {
-  const [generalBabies, setGeneralBabies] = useState<OneBaby[]>(babies); // starting with babies dataset
+  // const [generalBabies, setGeneralBabies] = useState<OneBaby[]>(babies); // starting with babies dataset
   const [inputText, setInputText] = useState("");
-  const [savedNames, setSavedNames] = useState<OneBaby[]>([]);
-  const [activeIndex, setActiveIndex] = useState("a");
-  const filteredBabies = filterData(generalBabies, inputText, activeIndex);
-
-  // Delete general ones that get clicked
-  const removeElementFromGeneralList = (name: OneBaby) => {
-    const updatedNames = filteredBabies.filter(
-      (filteredBaby) => filteredBaby !== name
-    );
-    setGeneralBabies(updatedNames);
-  };
+  const [favouriteNames, setFavouriteNames] = useState<OneBaby[]>([]);
+  const [activeIndex, setActiveIndex] = useState<ActiveIndex>("a");
+  const babiesNotInFavs = babies.filter(baby => !favouriteNames.includes(baby))
+  const matchedBabies = filterData(babiesNotInFavs, inputText, activeIndex);//notinfavs, remember to sort 
 
   //Save favs
 
-  const handleFavs = (name: OneBaby) => {
-    removeElementFromGeneralList(name);
-    setSavedNames([...savedNames, name]);
+  const handleAddFav = (name: OneBaby) => {
+    setFavouriteNames([...favouriteNames, name]);
   };
   // Save what I write in the search bar
   const saveTypedName = (typedName: string) => {
@@ -32,22 +26,20 @@ function App(): JSX.Element {
 
   // Delete fav ones that get clicked and return them to the same place
   const removeFavElementFromList = (name: OneBaby) => {
-    const updatedNames = savedNames.filter((savedName) => savedName !== name);
-    setSavedNames(updatedNames);
-    const orderedBabies = [...generalBabies, name];
-    orderedBabies.sort((a, b) => {
-      const fa = a.name;
-      const fb = b.name;
+    const updatedNames = favouriteNames.filter((savedName) => savedName !== name);
+    setFavouriteNames(updatedNames);
+    // orderedBabies.sort((a, b) => {
+    //   const fa = a.name;
+    //   const fb = b.name;
 
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-    setGeneralBabies(orderedBabies);
+    //   if (fa < fb) {
+    //     return -1;
+    //   }
+    //   if (fa > fb) {
+    //     return 1;
+    //   }
+    //   return 0;
+    // });
   };
   // handle sex filters
 
@@ -65,49 +57,29 @@ function App(): JSX.Element {
   return (
     <>
       <SearchBar value={inputText} onChange={saveTypedName} />
-      <button
-        className={activeIndex === "m" ? "isactive" : ""}
-        onClick={handleMaleSex}
-      >
-        Male
-      </button>
-      <button
-        className={activeIndex === "f" ? "isactive" : ""}
-        onClick={handleFemaleSex}
-      >
-        Female
-      </button>
-      <button
-        className={activeIndex === "a" ? "isactive" : ""}
-        onClick={handleAllSex}
-      >
-        All
-      </button>
-      {/* <SexFilter 
+      <SexFilter 
             onClickF={handleFemaleSex}
             onClickM={handleMaleSex}
-            onClickA={handleAllSex}/> */}
+            onClickA={handleAllSex}
+            activeIndex={activeIndex}/>
       <hr />
       <h2>Favourite names:</h2>
-      {savedNames.map((eachSavedBaby: OneBaby) => {
+      {favouriteNames.map((eachFavBaby: OneBaby) => {
         return (
-          <button
-            key={eachSavedBaby.id}
-            className={eachSavedBaby.sex === "f" ? "femaleb" : "maleb"}
-            onClick={() => removeFavElementFromList(eachSavedBaby)}
-          >
-            {eachSavedBaby.name}
-          </button>
+          <FavouriteNames 
+          key = {eachFavBaby.id} 
+          favName = {eachFavBaby} 
+          functionRemove = {removeFavElementFromList} />
         );
       })}
       <hr />
-      {filteredBabies.map((oneBaby: OneBaby) => {
+      {matchedBabies.map((oneBaby: OneBaby) => {
         return (
           <BabyName
             key={oneBaby.id}
             baby={oneBaby}
             onClick={() => {
-              handleFavs(oneBaby);
+              handleAddFav(oneBaby);
             }}
           />
         );
