@@ -7,24 +7,16 @@ import filterData from "./utils/filter";
 import { FavouriteNames } from "./components/FavouriteNameView";
 
 function App(): JSX.Element {
-  const [generalBabies, setGeneralBabies] = useState<OneBaby[]>(babies); // starting with babies dataset
+  // const [generalBabies, setGeneralBabies] = useState<OneBaby[]>(babies); // starting with babies dataset
   const [inputText, setInputText] = useState("");
   const [favouriteNames, setFavouriteNames] = useState<OneBaby[]>([]);
   const [activeIndex, setActiveIndex] = useState<ActiveIndex>("a");
-  const filteredBabies = filterData(generalBabies, inputText, activeIndex);
-
-  // Delete general ones that get clicked
-  const removeElementFromGeneralList = (name: OneBaby) => {
-    const updatedNames = filteredBabies.filter(
-      (filteredBaby) => filteredBaby !== name
-    );
-    setGeneralBabies(updatedNames);
-  };
+  const babiesNotInFavs = babies.filter(baby => !favouriteNames.includes(baby))
+  const matchedBabies = filterData(babiesNotInFavs, inputText, activeIndex);//notinfavs, remember to sort 
 
   //Save favs
 
-  const handleFavs = (name: OneBaby) => {
-    removeElementFromGeneralList(name);
+  const handleAddFav = (name: OneBaby) => {
     setFavouriteNames([...favouriteNames, name]);
   };
   // Save what I write in the search bar
@@ -36,20 +28,18 @@ function App(): JSX.Element {
   const removeFavElementFromList = (name: OneBaby) => {
     const updatedNames = favouriteNames.filter((savedName) => savedName !== name);
     setFavouriteNames(updatedNames);
-    const orderedBabies = [...generalBabies, name];
-    orderedBabies.sort((a, b) => {
-      const fa = a.name;
-      const fb = b.name;
+    // orderedBabies.sort((a, b) => {
+    //   const fa = a.name;
+    //   const fb = b.name;
 
-      if (fa < fb) {
-        return -1;
-      }
-      if (fa > fb) {
-        return 1;
-      }
-      return 0;
-    });
-    setGeneralBabies(orderedBabies);
+    //   if (fa < fb) {
+    //     return -1;
+    //   }
+    //   if (fa > fb) {
+    //     return 1;
+    //   }
+    //   return 0;
+    // });
   };
   // handle sex filters
 
@@ -83,13 +73,13 @@ function App(): JSX.Element {
         );
       })}
       <hr />
-      {filteredBabies.map((oneBaby: OneBaby) => {
+      {matchedBabies.map((oneBaby: OneBaby) => {
         return (
           <BabyName
             key={oneBaby.id}
             baby={oneBaby}
             onClick={() => {
-              handleFavs(oneBaby);
+              handleAddFav(oneBaby);
             }}
           />
         );
