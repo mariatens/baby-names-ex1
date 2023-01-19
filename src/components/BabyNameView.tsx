@@ -12,7 +12,6 @@ export function BabyName(props: BabyNamesProps): JSX.Element {
     <button
       className={props.baby.sex === "f" ? "femaleb" : "maleb"}
       key={props.baby.id}
-      //include an onClick function that has the name saved in a fav list
       onClick={props.onClick}
     >
       {props.baby.name}

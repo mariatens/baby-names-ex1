@@ -2,11 +2,13 @@
   background-color: #e0bbe4;
   font-size: 24px;
   border-radius: 20%;
+  cursor:pointer;
 }
 .maleb {
   background-color: #ffdfd3;
   font-size: 24px;
   border-radius: 20%;
+  cursor:pointer;
 }
 
 .searchbar {

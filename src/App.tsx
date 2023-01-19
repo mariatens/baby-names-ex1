@@ -7,12 +7,11 @@ import filterData from "./utils/filter";
 import { FavouriteNames } from "./components/FavouriteNameView";
 
 function App(): JSX.Element {
-  // const [generalBabies, setGeneralBabies] = useState<OneBaby[]>(babies); // starting with babies dataset
   const [inputText, setInputText] = useState("");
   const [favouriteNames, setFavouriteNames] = useState<OneBaby[]>([]);
   const [activeIndex, setActiveIndex] = useState<ActiveIndex>("a");
   const babiesNotInFavs = babies.filter(baby => !favouriteNames.includes(baby))
-  const matchedBabies = filterData(babiesNotInFavs, inputText, activeIndex);//notinfavs, remember to sort 
+  const matchedBabies = filterData(babiesNotInFavs, inputText, activeIndex);
 
   //Save favs
 
@@ -28,18 +27,6 @@ function App(): JSX.Element {
   const removeFavElementFromList = (name: OneBaby) => {
     const updatedNames = favouriteNames.filter((savedName) => savedName !== name);
     setFavouriteNames(updatedNames);
-    // orderedBabies.sort((a, b) => {
-    //   const fa = a.name;
-    //   const fb = b.name;
-
-    //   if (fa < fb) {
-    //     return -1;
-    //   }
-    //   if (fa > fb) {
-    //     return 1;
-    //   }
-    //   return 0;
-    // });
   };
   // handle sex filters
 
